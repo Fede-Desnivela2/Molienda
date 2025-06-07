@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+    <title>TRT-Series 601</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Applying dark theme base */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #6fa8dc; /* Modern light blue for main headings */
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.0em; /* Slightly increased contrast for h3 */
+            color: #cccccc; /* Light gray for sub-headings */
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #444; /* Subtle dark border */
+            padding-bottom: 3px;
+        }
+
+        .container {
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333333;
+        }
+
+        /* Improved Button Styles for 3D effect */
+        button, .button-link {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px; /* Slightly more horizontal padding */
+            border: none;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.25); /* Darker bottom border for depth */
+            border-radius: 6px; /* Slightly more rounded corners */
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex; /* For easy icon and text alignment */
+            align-items: center; /* Vertically center content (icon and text) */
+            justify-content: center; /* Horizontally center content */
+            margin: 5px 3px;
+            font-size: 0.9em;
+            font-weight: 500;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2); /* Subtle text shadow */
+            transition: background-color 0.2s ease-in-out, transform 0.15s ease, box-shadow 0.2s ease, border-bottom-width 0.15s ease;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1), 0 4px 5px rgba(0,0,0,0.08); /* More elaborate shadow */
+        }
+
+        button:hover, .button-link:hover {
+            background-color: #005cb3; /* Darker blue on hover */
+            transform: translateY(-2px); /* Lift up slightly more */
+            box-shadow: 0 4px 5px rgba(0,0,0,0.15), 0 8px 10px rgba(0,0,0,0.1); /* More pronounced shadow */
+        }
+
+        button:active, .button-link:active {
+            transform: translateY(1px); /* Sink button */
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.25); /* Inner shadow */
+            border-bottom-width: 1px; /* Reduce bottom border on press */
+            background-color: #004a8c; /* Slightly darker on press */
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .status-on {
+            color: #4CAF50;
+        } /* Bright green */
+        .status-off {
+            color: #F44336;
+        } /* Bright red */
+        .status-full {
+            color: #2196F3;
+        } /* Bright blue */
+        .status-empty {
+            color: #9E9E9E;
+        } /* Gray */
+
+        input[type='range'] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #bdbdbd;
+        } /* Lighter label color */
+
+        input[type='number'], input[type='text'], input[type='password'], select {
+            /* Also apply to select */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            width: calc(100% - 20px);
+            background-color: #3f3f3f; /* Dark background for inputs */
+            color: #e0e0e0; /* Light text for inputs */
+        }
+
+        form button {
+            margin-top: 10px;
+        } /* This style is generic, the ones above will override it */
+
+        /* Adjustments for buttons with specific colors to maintain 3D effect */
+        .button-green { background-color: #28a745 !important; border-bottom-color: #1c6c2e !important; }
+        .button-green:hover { background-color: #218838 !important; }
+        .button-green:active { background-color: #1e7e34 !important; }
+
+        .button-red { background-color: #dc3545 !important; border-bottom-color: #a71d2a !important; }
+        .button-red:hover { background-color: #c82333 !important; }
+        .button-red:active { background-color: #b21f2d !important; }
+
+        .button-yellow { background-color: #ffc107 !important; color: black !important; border-bottom-color: #c79500 !important; text-shadow: 0 1px 1px rgba(255,255,255,0.2); }
+        .button-yellow:hover { background-color: #e0a800 !important; }
+        .button-yellow:active { background-color: #d39e00 !important; }
+
+        .button-grey { background-color: #6c757d !important; border-bottom-color: #494f54 !important; }
+        .button-grey:hover { background-color: #5a6268 !important; }
+        .button-grey:active { background-color: #545b62 !important; }
+
+        .button-teal { background-color: #17a2b8 !important; border-bottom-color: #0f6674 !important; }
+        .button-teal:hover { background-color: #138496 !important; }
+        .button-teal:active { background-color: #117a8b !important; }
+
+        .button-orange { background-color: #fd7e14 !important; color: white !important; border-bottom-color: #c4610b !important; }
+        .button-orange:hover { background-color: #e67e22 !important; }
+        .button-orange:active { background-color: #d96e1c !important; }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .button-group .button-link {
+            flex-grow: 1; /* Allows buttons to expand */
+        }
+
+        /* For groups of 3 buttons, we might want the third to take full width if alone on a line */
+        .button-group .button-link:nth-child(3):last-child {
+            flex-basis: 100%; /* If it's the 3rd and last, take full width */
+        }
+
+        /* Styles for Login Page */
+        .login-page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .login-box {
+            max-width: 400px;
+            padding: 25px;
+            background-color: #2b2b2b; /* Dark background for login box */
+            border: 1px solid #444; /* Dark border */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Improved shadow */
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #6fa8dc;
+        } /* Consistent title color */
+
+        .login-box input[type='text'],
+        .login-box input[type='password'] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #555; /* Dark border for login inputs */
+            border-radius: 4px;
+            background-color: #3f3f3f; /* Dark background for login inputs */
+            color: #e0e0e0; /* Light text for login inputs */
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        .step-block {
+            border: 1px solid #007bff; /* Keep blue border to highlight steps */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #383838; /* Dark background for step blocks */
+        }
+
+        .step-block h4 {
+            margin-top: 0;
+            color: #6fa8dc;
+        } /* Step heading color, same as h1/h2 */
+
+        .param-group {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px dashed #555; /* Dashed dark border */
+            border-radius: 3px;
+        }
+
+        .param-group label {
+            font-weight: normal;
+            font-size: 0.85em;
+            color: #bdbdbd;
+        } /* Lighter labels within param-group */
+
+        /* Styles for routine list items */
+        .routine-list-item {
+            margin-bottom: 10px;
+            padding: 12px; /* Increased padding */
+            border: 1px solid #4f4f4f; /* Slightly lighter border than control-group */
+            border-radius: 6px; /* Consistent rounding */
+            background-color: #3a3a3a; /* Darker background for item */
+            color: #c0c0c0; /* General text color within item */
+        }
+
+        .routine-list-item strong {
+            /* For the routine name itself */
+            color: #e8e8e8; /* Brighter white for routine name */
+            font-size: 1.05em;
+        }
+
+        .routine-list-item .button-link {
+            margin-left: 10px;
+        } /* Spacing for buttons */
+
+        /* Status text in routine status group */
+        .routine-status-group p {
+            color: #d0d0d0;
+            margin-bottom: 8px;
+        }
+
+        .routine-status-group p strong {
+            color: #e0e0e0;
+        }
+
+        .routine-status-group p span {
+            color: #79c0ff; /* Light blue for dynamic values */
+            font-weight: normal;
+        }
+
+        #activeRoutineName {
+            color: #ffffff;
+            font-weight: bold;
+        } /* Make active routine name stand out */
+
+        /* Updated styles for Extractor Display */
+        .extractor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Made cards even smaller */
+            gap: 6px; /* Reduced gap further for more compactness */
+            margin-top: 15px;
+        }
+
+        .extractor-card {
+            padding: 5px; /* Reduced padding inside cards */
+            border: 1px solid #4CAF50;
+            border-radius: 6px;
+            background-color: #2e7d32;
+            color: #e8f5e9;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Smaller shadow */
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            cursor: pointer;
+            height: 80px; /* Fixed height for more consistent alignment */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute content vertically */
+        }
+
+        .extractor-card:hover {
+            transform: translateY(-1px); /* Less lift on hover */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .extractor-card strong {
+            display: block;
+            font-size: 0.8em; /* Smaller font for name */
+            margin-bottom: 2px; /* Reduced space below name */
+            color: #c8e6c9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2; /* Adjust line height for compactness */
+        }
+
+        .extractor-card .value-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1px; /* Further reduced margin */
+        }
+
+        .extractor-card .value-label {
+            font-size: 0.65em; /* Even smaller label font */
+            color: #a5d6a7;
+            margin-bottom: 0;
+            line-height: 1; /* Compact line height */
+        }
+
+        .extractor-card .value-display {
+            font-size: 0.9em; /* Smaller value font */
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.1; /* Compact line height */
+        }
+
+        .extractor-card.warning {
+            border-color: #ffb300;
+            background-color: #e65100;
+            color: #fff3e0;
+        }
+
+        .extractor-card.critical {
+            border-color: #d32f2f;
+            background-color: #b71c1c;
+            color: #ffebee;
+        }
+
+        /* Styles for Extractor Configuration Page */
+        #extractor-config-page .control-group {
+            background-color: #3a3a3a;
+            border-color: #007bff;
+        }
+
+        #extractor-config-page label {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #e0e0e0;
+        }
+
+        #extractor-config-page input[type="text"],
+        #extractor-config-page input[type="number"] {
+            margin-bottom: 15px;
+        }
+
+        /* LCD Display styles */
+        .lcd-display-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333333;
+            text-align: center;
+        }
+
+        .lcd-display {
+            background-color: #000;
+            border: 2px solid #555;
+            border-radius: 4px;
+            padding: 10px 20px;
+            margin: 15px auto;
+            width: fit-content;
+            font-family: 'Digital-7', monospace;
+            font-size: 2.5em;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+            letter-spacing: 2px;
+            min-width: 150px;
+            text-align: right;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2b2b2b;
+            margin: auto;
+            padding: 25px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-content .param-group {
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-content label {
+            margin-bottom: 8px;
+        }
+
+        .modal-content input[type="number"], .modal-content select {
+            width: calc(100% - 16px);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Custom Message Box */
+        .custom-message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+            font-size: 1.1em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .custom-message-box.show {
+            opacity: 1;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom:10px; border-bottom: 1px solid #444;'>
+            <h1>TRT-Series 601</h1>
+            <div id='auth_status_container'>
+                <a href='/login' class='button-link'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round' style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+                        <path d='M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2' />
+                        <path d='M20 12h-13l3 -3m0 6l-3 -3' />
+                    </svg>
+                    Iniciar Sesión
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Control Page -->
+        <div id="main-control-page">
+            <!-- Motor Status Section -->
+            <div class='control-group'>
+                <h2>Estado de Motores</h2>
+                <div class='extractor-grid' id='extractor-info-display'>
+                    <!-- Extractor data will be injected here with JavaScript -->
+                </div>
+            </div>
+
+            <!-- LCD Display and Tare control -->
+            <div class="lcd-display-group control-group">
+                <h2>Peso Actual</h2>
+                <div class="lcd-display" id="weightDisplay">0.0 kg</div>
+                <div class="button-group" style="justify-content: center;">
+                    <button class="button-link button-orange" id="tareButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 12l12 0" />
+                            <path d="M6 9l12 0" />
+                            <path d="M6 15l12 0" />
+                            <path d="M4 12c.76 -.116 1.48 -.403 2.11 -1.41l.89 -1.41" />
+                            <path d="M4 12c.76 .116 1.48 .403 2.11 1.41l.89 1.41" />
+                        </svg>
+                        Tara
+                    </button>
+                    <button class="button-link button-green" onclick="showStartRoutineModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M7 4v16l13 -8z" />
+                        </svg>
+                        Iniciar Rutina
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="button-group" style="justify-content: center;">
+                <button class="button-link button-teal" id="showFormulasButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                        <path d="M10 12h4" />
+                        <path d="M10 16h4" />
+                    </svg>
+                    Fórmulas
+                </button>
+            </div>
+        </div>
+
+        <!-- Extractor Configuration Page (initially hidden) -->
+        <div id="extractor-config-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Configuración de Extractor: <span id="config-extractor-name"></span></h2>
+                <div class="param-group">
+                    <label for="config-ingredient-input">Contenido:</label>
+                    <input type="text" id="config-ingredient-input" placeholder="Nombre del ingrediente (ej: Maíz)" />
+                </div>
+                <div class="param-group">
+                    <label for="config-inertia-input">Inercia (kg):</label>
+                    <input type="number" id="config-inertia-input" placeholder="0" min="0" value="0" />
+                </div>
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-green" id="save-config-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l5 5l10 -10" />
+                        </svg>
+                        Guardar Configuración
+                    </button>
+                    <button class="button-link button-grey" id="backToMainFromConfigButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Formulas Page (initially hidden) -->
+        <div id="formulas-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Gestión de Fórmulas</h2>
+                <div class="param-group">
+                    <label for="formulaNameInput">Nombre de fórmula:</label>
+                    <input type="text" id="formulaNameInput" placeholder="Ej: Molienda Fina" />
+                </div>
+
+                <div id="formulas-form-container">
+                    <!-- The ingredient and kilogram fields will be injected here -->
+                </div>
+
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-green" id="saveFormulaButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                            <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                            <path d="M14 4l0 4l-6 0l0 -4" />
+                        </svg>
+                        Guardar Fórmula
+                    </button>
+                    <button class="button-link button-grey" id="backToMainFromFormulasButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+
+            <div class='control-group'>
+                <h2>Listado de Fórmulas Guardadas</h2>
+                <div id="saved-formulas-list">
+                    <!-- Saved formulas will be injected here -->
+                    <p style="text-align: center; color: #aaa;">No hay fórmulas guardadas.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal for Starting Routine -->
+    <div id="startRoutineModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>Iniciar Rutina de Molienda</h2>
+            <div class="param-group">
+                <label for="selectFormula">Seleccionar Fórmula:</label>
+                <select id="selectFormula" style="width: 100%;">
+                    <!-- Formula options will be loaded here -->
+                </select>
+            </div>
+            <div class="param-group">
+                <label for="targetKilograms">Cantidad de Kilogramos a Producir:</label>
+                <input type="number" id="targetKilograms" placeholder="0" min="0" value="0" />
+            </div>
+            <div class="modal-footer">
+                <button class="button-link button-green" id="startRoutineButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 4v16l13 -8z" />
+                    </svg>
+                    Comenzar
+                </button>
+                <button class="button-link button-red" id="cancelRoutineButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12" />
+                        <path d="M6 6l12 12" />
+                    </svg>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="customMessageBox" class="custom-message-box"></div>
+
+    <script>
+        // Global array to store extractor data (name and inertia)
+        // Now initialized with 11 extractors.
+        let extractorIngredients = Array.from({length: 11}, (_, i) => ({
+            name: `Extractor S${i + 1}`,
+            inertia: 0 // Default inertia
+        }));
+
+        // Variable to keep track of which extractor is being edited
+        let currentEditingExtractorId = -1;
+        // Global variable for weight simulation
+        let currentWeight = 0.0;
+        let weightInterval = null; // To store the interval ID for clearing
+        // Global array to store saved formulas
+        let savedFormulas = [];
+        // Define static temperatures for the extractors (expanded to 11)
+        const staticTemperatures = [44, 38, 55, 41, 68, 35, 48, 60, 52, 39, 65];
+        // Define base RPMs for each extractor (expanded to 11)
+        const baseRpmValues = [950, 1020, 880, 1100, 990, 850, 930, 1050, 970, 890, 1000];
+        const NUM_EXTRACTORS = extractorIngredients.length; // Number of extractors
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp(); // Initialize the application
+        });
+
+        function initApp() {
+            // Load ingredient names and inertia from localStorage
+            const storedIngredients = localStorage.getItem('extractorIngredients');
+            if (storedIngredients) {
+                // Parse and update existing extractors, also handle new ones if array size increased
+                const loadedIngredients = JSON.parse(storedIngredients);
+                loadedIngredients.forEach((item, index) => {
+                    if (index < NUM_EXTRACTORS) {
+                        // Ensure 'name' and 'inertia' properties exist after parsing
+                        extractorIngredients[index].name = item.name || `Extractor S${index + 1}`;
+                        extractorIngredients[index].inertia = item.inertia !== undefined ? item.inertia : 0;
+                    }
+                });
+            }
+
+            // Load saved formulas from localStorage
+            loadFormulas();
+
+            // Initial update of extractor status
+            updateExtractorStatus();
+            // Update RPM status every 2 seconds for real-time simulation
+            setInterval(updateExtractorStatus, 2000);
+
+            // Start weight simulation
+            startWeightSimulation();
+
+            // Get references to page elements
+            const mainControlPage = document.getElementById('main-control-page');
+            const formulasPage = document.getElementById('formulas-page');
+            const extractorConfigPage = document.getElementById('extractor-config-page'); // New config page
+            const showFormulasButton = document.getElementById('showFormulasButton');
+            const backToMainFromFormulasButton = document.getElementById('backToMainFromFormulasButton'); // Renamed for clarity
+            const backToMainFromConfigButton = document.getElementById('backToMainFromConfigButton'); // New back button
+            const saveConfigButton = document.getElementById('save-config-button'); // New save button for config
+            const configIngredientInput = document.getElementById('config-ingredient-input'); // New input for config
+            const configInertiaInput = document.getElementById('config-inertia-input'); // New inertia input for config
+            const currentExtractorNameForConfig = document.getElementById('config-extractor-name'); // New span for config title
+
+            const saveFormulaButton = document.getElementById('saveFormulaButton');
+            const tareButton = document.getElementById('tareButton');
+            const startRoutineModal = document.getElementById('startRoutineModal');
+            const startRoutineButton = document.getElementById('startRoutineButton');
+            const cancelRoutineButton = document.getElementById('cancelRoutineButton');
+
+
+            // Event listener for showing formulas page
+            showFormulasButton.addEventListener('click', function() {
+                mainControlPage.style.display = 'none';
+                formulasPage.style.display = 'block';
+                extractorConfigPage.style.display = 'none'; // Ensure config page is hidden
+                renderFormulasPage(); // Render formula inputs when navigating to the page
+                renderSavedFormulas(); // Also render saved formulas list
+            });
+
+            // Event listener for going back from formulas page to main control page
+            backToMainFromFormulasButton.addEventListener('click', function() {
+                formulasPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+                extractorConfigPage.style.display = 'none'; // Ensure config page is hidden
+            });
+
+            // Event listener for going back from config page to main control page
+            backToMainFromConfigButton.addEventListener('click', function() {
+                extractorConfigPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+            });
+
+            // Event listener for saving extractor configuration
+            saveConfigButton.addEventListener('click', function() {
+                saveExtractorConfig(configIngredientInput.value, parseFloat(configInertiaInput.value));
+            });
+
+            // Event listener for saving the formula
+            if (saveFormulaButton) {
+                saveFormulaButton.addEventListener('click', saveFormula);
+            }
+
+            // Event listener for Tare button
+            if (tareButton) {
+                tareButton.addEventListener('click', tareWeight);
+            }
+
+            // Event listeners for Start Routine Modal
+            if (startRoutineButton) {
+                startRoutineButton.addEventListener('click', startRoutine);
+            }
+            if (cancelRoutineButton) {
+                cancelRoutineButton.addEventListener('click', hideStartRoutineModal);
+            }
+            // Close modal if user clicks outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target == startRoutineModal) {
+                    hideStartRoutineModal();
+                }
+            });
+        }
+
+        // Helper function to get a random integer within a range
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Helper function for custom message box
+        function showMessageBox(message, duration = 3000) {
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.innerText = message;
+            msgBox.classList.add('show');
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, duration);
+        }
+
+        // --- Extractor Logic ---
+
+        // Function to navigate to and open the extractor configuration page
+        function showExtractorConfigPage(extractorId) {
+            currentEditingExtractorId = extractorId;
+            const mainControlPage = document.getElementById('main-control-page');
+            const formulasPage = document.getElementById('formulas-page');
+            const extractorConfigPage = document.getElementById('extractor-config-page');
+            const configIngredientInput = document.getElementById('config-ingredient-input');
+            const configInertiaInput = document.getElementById('config-inertia-input');
+            const currentExtractorNameForConfig = document.getElementById('config-extractor-name');
+
+            const extractorData = extractorIngredients[extractorId];
+
+            currentExtractorNameForConfig.innerText = `Extractor S${extractorId + 1}`;
+            configIngredientInput.value = extractorData.name;
+            configInertiaInput.value = extractorData.inertia;
+
+            mainControlPage.style.display = 'none';
+            formulasPage.style.display = 'none';
+            extractorConfigPage.style.display = 'block';
+        }
+
+        // Function to save extractor configuration
+        function saveExtractorConfig(newName, newInertia) {
+            if (currentEditingExtractorId !== -1) {
+                extractorIngredients[currentEditingExtractorId].name = newName.trim() || `Extractor S${currentEditingExtractorId + 1}`;
+                extractorIngredients[currentEditingExtractorId].inertia = isNaN(newInertia) ? 0 : newInertia;
+
+                localStorage.setItem('extractorIngredients', JSON.stringify(extractorIngredients));
+                updateExtractorStatus(); // Re-render main page extractors
+                showMessageBox("Configuración de extractor guardada.");
+                // Go back to main page after saving
+                document.getElementById('extractor-config-page').style.display = 'none';
+                document.getElementById('main-control-page').style.display = 'block';
+                currentEditingExtractorId = -1; // Reset edited extractor ID
+            }
+        }
+
+
+        // Main function to update extractor status display
+        function updateExtractorStatus() {
+            const extractorContainer = document.getElementById('extractor-info-display');
+            extractorContainer.innerHTML = ''; // Clear existing content
+
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const temp = staticTemperatures[i];
+                const baseRpm = baseRpmValues[i];
+
+                // Simulate RPM with a very small variation (-1, 0, 1, or 2 RPM)
+                const rpmVariation = getRandomInt(-1, 2);
+                const currentRpm = baseRpm + rpmVariation;
+
+                const extractorData = extractorIngredients[i];
+                const extractorName = extractorData.name;
+                // Note: inertia is NOT displayed here
+
+                let cardClass = 'extractor-card';
+                // Add warning or critical classes based on temperature
+                if (temp > 60) {
+                    cardClass += ' critical'; // High temperature
+                } else if (temp > 50) {
+                    cardClass += ' warning'; // Elevated temperature
+                }
+
+                // Construct the HTML for each extractor card
+                // The onclick handler now calls showExtractorConfigPage
+                const extractorHtml = `
+                    <div class='${cardClass}' data-index='${i}' onclick='showExtractorConfigPage(${i})'>
+                        <strong>${extractorName}</strong>
+                        <div class='value-row'>
+                            <span class='value-label'>Temp:</span>
+                            <span class='value-display'>${temp} C°</span>
+                        </div>
+                        <div class='value-row'>
+                            <span class='value-label'>RPM:</span>
+                            <span class='value-display'>${currentRpm}</span>
+                        </div>
+                    </div>
+                `;
+                extractorContainer.innerHTML += extractorHtml;
+            }
+        }
+
+        // --- Weight Display Logic ---
+
+        // Function to start weight simulation
+        function startWeightSimulation() {
+            if (weightInterval) clearInterval(weightInterval); // Clear any existing interval
+            // Simulate initial non-zero weight for effect if needed
+            currentWeight = parseFloat((Math.random() * 5 + 0.1).toFixed(1)); // Start with a small random weight
+            updateWeightDisplay();
+            weightInterval = setInterval(() => {
+                // Simulate slight fluctuation around the current weight
+                currentWeight += (Math.random() * 1 - 0.5); // Adds/subtracts between -0.5 and 0.5
+                if (currentWeight < 0) currentWeight = 0; // Prevent negative weight
+                updateWeightDisplay();
+            }, 500); // Update every 0.5 seconds
+        }
+
+        // Function to update the LCD weight display
+        function updateWeightDisplay() {
+            const weightDisplayElem = document.getElementById('weightDisplay');
+            if (weightDisplayElem) {
+                weightDisplayElem.innerText = `${currentWeight.toFixed(1)} kg`;
+            }
+        }
+
+        // Function to tare the weight
+        function tareWeight() {
+            currentWeight = 0.0;
+            updateWeightDisplay();
+            showMessageBox("Tara aplicada. Peso reiniciado a 0.0 kg.");
+        }
+
+        // --- Formula Management Logic ---
+
+        // Function to render the formula input fields dynamically
+        function renderFormulasPage() {
+            const formulasFormContainer = document.getElementById('formulas-form-container');
+            formulasFormContainer.innerHTML = ''; // Clear existing content
+
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const extractorData = extractorIngredients[i];
+                const ingredientName = extractorData.name; // Use stored name
+
+                const formulaFieldHtml = `
+                    <div class="param-group">
+                        <h3>${ingredientName}</h3>
+                        <label for="kgInput-${i}">Cantidad (kg):</label>
+                        <input type="number" id="kgInput-${i}" placeholder="0" min="0" value="0" />
+                    </div>
+                `;
+                formulasFormContainer.innerHTML += formulaFieldHtml;
+            }
+        }
+
+        // Function to save a formula
+        function saveFormula() {
+            const formulaNameInput = document.getElementById('formulaNameInput');
+            const formulaName = formulaNameInput.value.trim();
+
+            if (!formulaName) {
+                showMessageBox("Por favor, ingresa un nombre para la fórmula.");
+                return;
+            }
+
+            const formulaData = {
+                name: formulaName,
+                ingredients: {}
+            };
+
+            let allIngredientsEmpty = true;
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const extractorData = extractorIngredients[i];
+                const ingredientName = extractorData.name; // Use stored name
+                const kgInput = document.getElementById(`kgInput-${i}`);
+                const kgValue = parseFloat(kgInput.value);
+
+                if (!isNaN(kgValue) && kgValue > 0) {
+                    formulaData.ingredients[ingredientName] = kgValue;
+                    allIngredientsEmpty = false;
+                }
+            }
+
+            if (allIngredientsEmpty) {
+                 showMessageBox("La fórmula no puede estar vacía. Por favor, ingresa al menos una cantidad de ingrediente.");
+                 return;
+            }
+
+            // Check if formula with this name already exists
+            const existingFormulaIndex = savedFormulas.findIndex(f => f.name === formulaName);
+            if (existingFormulaIndex > -1) {
+                // Update existing formula
+                savedFormulas[existingFormulaIndex] = formulaData;
+                showMessageBox(`Fórmula '${formulaName}' actualizada con éxito.`);
+            } else {
+                // Add new formula
+                savedFormulas.push(formulaData);
+                showMessageBox(`Fórmula '${formulaName}' guardada con éxito.`);
+            }
+
+            localStorage.setItem('savedFormulas', JSON.stringify(savedFormulas)); // Save to localStorage
+            formulaNameInput.value = ''; // Clear formula name input
+            renderFormulasPage(); // Reset kg inputs
+            renderSavedFormulas(); // Update the list of saved formulas
+        }
+
+        // Function to load formulas from localStorage
+        function loadFormulas() {
+            const storedFormulas = localStorage.getItem('savedFormulas');
+            if (storedFormulas) {
+                savedFormulas = JSON.parse(storedFormulas);
+            }
+        }
+
+        // Function to render the list of saved formulas
+        function renderSavedFormulas() {
+            const savedFormulasList = document.getElementById('saved-formulas-list');
+            savedFormulasList.innerHTML = ''; // Clear existing content
+
+            if (savedFormulas.length === 0) {
+                savedFormulasList.innerHTML = '<p style="text-align: center; color: #aaa;">No hay fórmulas guardadas.</p>';
+                return;
+            }
+
+            savedFormulas.forEach((formula, index) => {
+                const formulaItem = document.createElement('div');
+                formulaItem.classList.add('routine-list-item');
+                formulaItem.style.display = 'flex';
+                formulaItem.style.justifyContent = 'space-between';
+                formulaItem.style.alignItems = 'center';
+
+                let ingredientsSummary = Object.entries(formula.ingredients)
+                    .map(([name, kg]) => `${name}: ${kg}kg`)
+                    .join(', ');
+                if (ingredientsSummary.length > 50) { // Truncate if too long
+                    ingredientsSummary = ingredientsSummary.substring(0, 47) + '...';
+                }
+
+                formulaItem.innerHTML = `
+                    <div>
+                        <strong>${formula.name}</strong><br>
+                        <span style="font-size: 0.85em; color: #999;">Ingredientes: ${ingredientsSummary || 'Ninguno'}</span>
+                    </div>
+                    <div class="button-group" style="margin: 0;">
+                        <button class="button-link button-green" onclick="showStartRoutineModal('${formula.name}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 4v16l13 -8z" />
+                            </svg>
+                            Iniciar Rutina
+                        </button>
+                        <button class="button-link button-red" onclick="deleteFormula(${index})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                            </svg>
+                            Eliminar
+                        </button>
+                    </div>
+                `;
+                savedFormulasList.appendChild(formulaItem);
+            });
+        }
+
+        // Function to delete a formula with custom confirmation
+        function deleteFormula(index) {
+            showMessageBox(`¿Estás seguro de que quieres eliminar la fórmula '${savedFormulas[index].name}'?`, 0); // Show indefinitely until action
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.innerHTML += `
+                <div class="button-group" style="margin-top: 15px; justify-content: center;">
+                    <button class="button-link button-red" onclick="confirmDeleteFormula(${index}, true)">Sí</button>
+                    <button class="button-link button-grey" onclick="confirmDeleteFormula(${index}, false)">No</button>
+                </div>
+            `;
+        }
+
+        function confirmDeleteFormula(index, confirmed) {
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.classList.remove('show');
+            msgBox.innerHTML = ''; // Clear message box content
+
+            if (confirmed) {
+                savedFormulas.splice(index, 1);
+                localStorage.setItem('savedFormulas', JSON.stringify(savedFormulas));
+                renderSavedFormulas();
+                showMessageBox("Fórmula eliminada con éxito.");
+            }
+        }
+
+
+        // --- Start Routine Modal Logic ---
+
+        // Function to show the start routine modal
+        function showStartRoutineModal(preSelectedFormulaName = null) {
+            const modal = document.getElementById('startRoutineModal');
+            const selectFormula = document.getElementById('selectFormula');
+            selectFormula.innerHTML = ''; // Clear previous options
+
+            if (savedFormulas.length === 0) {
+                selectFormula.innerHTML = '<option value="">No hay fórmulas disponibles</option>';
+                // Optionally disable the start button if no formulas
+                document.getElementById('startRoutineButton').disabled = true;
+            } else {
+                document.getElementById('startRoutineButton').disabled = false;
+                savedFormulas.forEach(formula => {
+                    const option = document.createElement('option');
+                    option.value = formula.name;
+                    option.innerText = formula.name;
+                    selectFormula.appendChild(option);
+                });
+
+                // Pre-select a formula if one was passed
+                if (preSelectedFormulaName) {
+                    selectFormula.value = preSelectedFormulaName;
+                }
+            }
+
+            document.getElementById('targetKilograms').value = 0; // Reset kilograms input
+            modal.style.display = 'flex'; // Show the modal
+        }
+
+        // Function to hide the start routine modal
+        function hideStartRoutineModal() {
+            const modal = document.getElementById('startRoutineModal');
+            modal.style.display = 'none';
+        }
+
+        // Function to initiate the routine
+        function startRoutine() {
+            const selectedFormulaName = document.getElementById('selectFormula').value;
+            const targetKilograms = parseFloat(document.getElementById('targetKilograms').value);
+
+            if (!selectedFormulaName) {
+                showMessageBox("Por favor, selecciona una fórmula.");
+                return;
+            }
+            if (isNaN(targetKilograms) || targetKilograms <= 0) {
+                showMessageBox("Por favor, ingresa una cantidad de kilogramos válida (> 0).");
+                return;
+            }
+
+            const selectedFormula = savedFormulas.find(f => f.name === selectedFormulaName);
+
+            if (selectedFormula) {
+                const confirmationMessage = `Iniciando rutina con la fórmula '${selectedFormula.name}' para producir ${targetKilograms} kg.
+                Ingredientes necesarios: ${Object.entries(selectedFormula.ingredients).map(([name, kg]) => `${name}: ${kg}kg`).join(', ')}`;
+                showMessageBox(confirmationMessage, 5000); // Show for a longer duration
+
+                // --- Simulation of routine start (placeholder) ---
+                console.log("Rutina Iniciada:");
+                console.log("Fórmula:", selectedFormula);
+                console.log("Kilogramos a producir:", targetKilograms);
+
+                // Here, you would implement the actual logic to control the extractors
+                // based on the formula and target kilograms, taking inertia into account.
+                // For demonstration, we'll just log it.
+
+                hideStartRoutineModal(); // Close the modal
+            } else {
+                showMessageBox("Error: Fórmula seleccionada no encontrada.");
+            }
+        }
+    </script>
+</body>
+</html>
