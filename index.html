@@ -711,128 +711,137 @@
                         <!-- Background/Floor -->
                         <rect x="0" y="0" width="600" height="400" fill="#222"/>
 
-                        <!-- Major Structures -->
-                        <!-- Silos (Simplified, corresponding to Extractors S1-S5 and S6-S11) -->
-                        <rect x="20" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext1"/>
-                        <rect x="120" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext2"/>
-                        <rect x="220" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext3"/>
-                        <rect x="320" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext4"/>
-                        <rect x="420" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext5"/>
-                        <rect x="520" y="50" width="60" height="100" rx="5" ry="5" class="svg-component" id="silo-ext6"/>
-                        <!-- Connectors from silos to Balanza (5) -->
-                        <line x1="60" y1="150" x2="60" y2="180" stroke="#777" stroke-width="2"/>
-                        <line x1="160" y1="150" x2="160" y2="180" stroke="#777" stroke-width="2"/>
-                        <line x1="260" y1="150" x2="260" y2="180" stroke="#777" stroke-width="2"/>
-                        <line x1="360" y1="150" x2="360" y2="180" stroke="#777" stroke-width="2"/>
-                        <line x1="460" y1="150" x2="460" y2="180" stroke="#777" stroke-width="2"/>
-                        <line x1="550" y1="150" x2="550" y2="180" stroke="#777" stroke-width="2"/>
+                        <!-- Extractor Silos (Simplified as small rectangles for extractors) -->
+                        <!-- Row 1 (Ext. S1-S6) -->
+                        <rect x="10" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-0"/>
+                        <text x="30" y="70" text-anchor="middle" class="svg-label">S1</text>
+                        <rect x="60" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-1"/>
+                        <text x="80" y="70" text-anchor="middle" class="svg-label">S2</text>
+                        <rect x="110" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-2"/>
+                        <text x="130" y="70" text-anchor="middle" class="svg-label">S3</text>
+                        <rect x="160" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-3"/>
+                        <text x="180" y="70" text-anchor="middle" class="svg-label">S4</text>
+                        <rect x="210" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-4"/>
+                        <text x="230" y="70" text-anchor="middle" class="svg-label">S5</text>
+                        <rect x="260" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-5"/>
+                        <text x="280" y="70" text-anchor="middle" class="svg-label">S6</text>
+
+                        <!-- Row 2 (Ext. S7-S11) -->
+                        <rect x="10" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-6"/>
+                        <text x="30" y="140" text-anchor="middle" class="svg-label">S7</text>
+                        <rect x="60" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-7"/>
+                        <text x="80" y="140" text-anchor="middle" class="svg-label">S8</text>
+                        <rect x="110" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-8"/>
+                        <text x="130" y="140" text-anchor="middle" class="svg-label">S9</text>
+                        <rect x="160" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-9"/>
+                        <text x="180" y="140" text-anchor="middle" class="svg-label">S10</text>
+                        <rect x="210" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-10"/>
+                        <text x="230" y="140" text-anchor="middle" class="svg-label">S11</text>
+
+                        <!-- Common pipe from extractors to Balanza (5) - simplified routing-->
+                        <path d="M150,150 L150,200 C150,220 200,220 200,240 L200,280" stroke="#777" stroke-width="2" fill="none"/>
 
                         <!-- 5: Balanza -->
-                        <polygon points="200,180 400,180 380,250 220,250" class="svg-component" id="component-5"/>
-                        <text x="300" y="215" text-anchor="middle" class="svg-label">Balanza (5)</text>
-                        <text x="300" y="235" text-anchor="middle" class="svg-label" id="balance-weight-display">0.00 kg</text>
+                        <polygon points="200,280 400,280 380,350 220,350" class="svg-component" id="component-5"/>
+                        <text x="300" y="315" text-anchor="middle" class="svg-label">Balanza (5)</text>
+                        <text x="300" y="335" text-anchor="middle" class="svg-label" id="balance-weight-display">0.00 kg</text>
 
                         <!-- 15: Extractor de Balanza (below balanza) -->
-                        <rect x="290" y="250" width="20" height="30" class="svg-component" id="component-15"/>
-                        <text x="300" y="270" text-anchor="middle" class="svg-label">Ext. Balanza (15)</text>
+                        <rect x="290" y="350" width="20" height="30" class="svg-component" id="component-15"/>
+                        <text x="300" y="370" text-anchor="middle" class="svg-label">Ext. Balanza (15)</text>
 
                         <!-- 8: Noria Elevador de Balanza (vertical conveyor) -->
-                        <rect x="180" y="200" width="30" height="150" class="svg-component" id="component-8"/>
-                        <text x="195" y="280" text-anchor="middle" transform="rotate(90 195 280)" class="svg-label">Noria Bal. (8)</text>
+                        <rect x="100" y="200" width="30" height="150" class="svg-component" id="component-8"/>
+                        <text x="115" y="280" text-anchor="middle" transform="rotate(90 115 280)" class="svg-label">Noria Bal. (8)</text>
 
                         <!-- Path from Extractor Balanza (15) to Noria Balanza (8) -->
-                        <line x1="300" y1="280" x2="200" y2="280" stroke="#777" stroke-width="2"/>
-                        <line x1="200" y1="280" x2="200" y2="200" stroke="#777" stroke-width="2"/>
+                        <line x1="300" y1="380" x2="115" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="115" y1="380" x2="115" y2="350" stroke="#777" stroke-width="2"/>
 
                         <!-- 2: Pulmón del Molino (Silo before mill) -->
-                        <rect x="400" y="200" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-2"/>
-                        <text x="440" y="240" text-anchor="middle" class="svg-label">Pulmón Mol. (2)</text>
+                        <rect x="450" y="200" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-2"/>
+                        <text x="490" y="240" text-anchor="middle" class="svg-label">Pulmón Mol. (2)</text>
 
                         <!-- Path from Noria Balanza (8) to Pulmón Molino (2) -->
-                        <line x1="200" y1="200" x2="400" y2="200" stroke="#777" stroke-width="2"/>
+                        <path d="M115,200 L115,180 C115,160 400,160 450,200 L450,200" stroke="#777" stroke-width="2" fill="none"/>
+                        <line x1="115" y1="200" x2="450" y2="200" stroke="#777" stroke-width="2"/>
+
 
                         <!-- 10: Alimentador de Molino (below Pulmón Molino) -->
-                        <rect x="430" y="280" width="20" height="20" class="svg-component" id="component-10"/>
-                        <text x="440" y="295" text-anchor="middle" class="svg-label">Alim. Mol. (10)</text>
+                        <rect x="480" y="280" width="20" height="20" class="svg-component" id="component-10"/>
+                        <text x="490" y="295" text-anchor="middle" class="svg-label">Alim. Mol. (10)</text>
 
                         <!-- 4: Molino -->
-                        <rect x="400" y="300" width="80" height="50" rx="5" ry="5" class="svg-component" id="component-4"/>
-                        <text x="440" y="325" text-anchor="middle" class="svg-label">Molino (4)</text>
+                        <rect x="450" y="300" width="80" height="50" rx="5" ry="5" class="svg-component" id="component-4"/>
+                        <text x="490" y="325" text-anchor="middle" class="svg-label">Molino (4)</text>
 
                         <!-- Path from Alimentador Molino (10) to Molino (4) -->
-                        <line x1="440" y1="300" x2="440" y2="300" stroke="#777" stroke-width="2"/>
+                        <line x1="490" y1="300" x2="490" y2="310" stroke="#777" stroke-width="2"/>
 
                         <!-- 7: Elevador del Molino (vertical conveyor) -->
-                        <rect x="300" y="250" width="30" height="150" class="svg-component" id="component-7"/>
-                        <text x="315" y="325" text-anchor="middle" transform="rotate(90 315 325)" class="svg-label">Elev. Mol. (7)</text>
+                        <rect x="350" y="250" width="30" height="150" class="svg-component" id="component-7"/>
+                        <text x="365" y="325" text-anchor="middle" transform="rotate(90 365 325)" class="svg-label">Elev. Mol. (7)</text>
 
                         <!-- Path from Molino (4) to Elevador Molino (7) -->
-                        <line x1="440" y1="350" x2="315" y2="350" stroke="#777" stroke-width="2"/>
+                        <line x1="490" y1="350" x2="365" y2="350" stroke="#777" stroke-width="2"/>
 
                         <!-- 14: Extractor de Molino (below Molino, feeds Noria Elevador Molino) -->
-                        <rect x="400" y="350" width="20" height="30" class="svg-component" id="component-14"/>
-                        <text x="410" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (14)</text>
+                        <rect x="450" y="350" width="20" height="30" class="svg-component" id="component-14"/>
+                        <text x="460" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (14)</text>
 
-                        <!-- 16: Otro extractor de molino (similar a 14) -->
-                        <rect x="460" y="350" width="20" height="30" class="svg-component" id="component-16"/>
-                        <text x="470" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (16)</text>
+                        <!-- 16: Otro extractor de molino (similar to 14) -->
+                        <rect x="510" y="350" width="20" height="30" class="svg-component" id="component-16"/>
+                        <text x="520" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (16)</text>
 
                         <!-- Paths from extractors 14 and 16 to Elevador Molino (7) -->
-                        <line x1="410" y1="380" x2="315" y2="380" stroke="#777" stroke-width="2"/>
-                        <line x1="470" y1="380" x2="315" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="460" y1="380" x2="365" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="520" y1="380" x2="365" y2="380" stroke="#777" stroke-width="2"/>
 
 
                         <!-- 1: Pulmón antes de la mezcladora (Silo before mixer) -->
-                        <rect x="100" y="50" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-1-pulmon"/>
-                        <text x="140" y="90" text-anchor="middle" class="svg-label">Pulmón Mez. (1)</text>
+                        <rect x="250" y="20" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-1-pulmon"/>
+                        <text x="290" y="60" text-anchor="middle" class="svg-label">Pulmón Mez. (1)</text>
 
                         <!-- 11: Permite el paso del pulmón uno a la mezcladora (valve) -->
-                        <circle cx="140" cy="145" r="10" class="svg-component" id="component-11"/>
-                        <text x="140" y="165" text-anchor="middle" class="svg-label">Paso Mez. (11)</text>
+                        <circle cx="290" cy="115" r="10" class="svg-component" id="component-11"/>
+                        <text x="290" y="135" text-anchor="middle" class="svg-label">Paso Mez. (11)</text>
 
                         <!-- Path from Pulmón Mezcladora (1) through Paso Mez. (11) to Mezcladora -->
-                        <line x1="140" y1="130" x2="140" y2="145" stroke="#777" stroke-width="2"/>
+                        <line x1="290" y1="100" x2="290" y2="115" stroke="#777" stroke-width="2"/>
 
 
                         <!-- Mezcladora (represented by a large tank with 3 at the bottom) -->
-                        <polygon points="100,200 200,200 180,280 120,280" class="svg-component" id="mixer-tank"/>
-                        <text x="150" y="240" text-anchor="middle" class="svg-label">Mezcladora</text>
+                        <polygon points="250,150 350,150 330,230 270,230" class="svg-component" id="mixer-tank"/>
+                        <text x="300" y="190" text-anchor="middle" class="svg-label">Mezcladora</text>
 
                         <!-- Path from Paso Mezcladora (11) to Mezcladora -->
-                        <line x1="140" y1="145" x2="140" y2="200" stroke="#777" stroke-width="2"/>
+                        <line x1="290" y1="125" x2="290" y2="150" stroke="#777" stroke-width="2"/>
 
 
                         <!-- 3: Abre la mezcladora (valve below mixer) -->
-                        <circle cx="150" cy="285" r="10" class="svg-component" id="component-3"/>
-                        <text x="150" y="305" text-anchor="middle" class="svg-label">Abre Mez. (3)</text>
+                        <circle cx="300" cy="235" r="10" class="svg-component" id="component-3"/>
+                        <text x="300" y="255" text-anchor="middle" class="svg-label">Abre Mez. (3)</text>
 
 
                         <!-- 13: Extractor de Mezcladora -->
-                        <rect x="140" y="310" width="20" height="30" class="svg-component" id="component-13"/>
-                        <text x="150" y="330" text-anchor="middle" class="svg-label">Ext. Mez. (13)</text>
+                        <rect x="290" y="260" width="20" height="30" class="svg-component" id="component-13"/>
+                        <text x="300" y="280" text-anchor="middle" class="svg-label">Ext. Mez. (13)</text>
 
                         <!-- Path from Abre Mezcladora (3) to Extractor Mezcladora (13) -->
-                        <line x1="150" y1="295" x2="150" y2="310" stroke="#777" stroke-width="2"/>
+                        <line x1="300" y1="245" x2="300" y2="260" stroke="#777" stroke-width="2"/>
 
                         <!-- 12: Noria Elevadora de Mezcladora -->
-                        <rect x="50" y="250" width="30" height="150" class="svg-component" id="component-12"/>
-                        <text x="65" y="325" text-anchor="middle" transform="rotate(90 65 325)" class="svg-label">Noria Mez. (12)</text>
+                        <rect x="180" y="150" width="30" height="150" class="svg-component" id="component-12"/>
+                        <text x="195" y="225" text-anchor="middle" transform="rotate(90 195 225)" class="svg-label">Noria Mez. (12)</text>
 
                         <!-- Path from Extractor Mezcladora (13) to Noria Mezcladora (12) -->
-                        <line x1="150" y1="340" x2="65" y2="340" stroke="#777" stroke-width="2"/>
-                        <line x1="65" y1="340" x2="65" y2="250" stroke="#777" stroke-width="2"/>
-
-                        <!-- Connection from Molino (4) to Noria Elevador Molino (7) -->
-                        <line x1="440" y1="350" x2="315" y2="350" stroke="#777" stroke-width="2"/>
+                        <line x1="300" y1="290" x2="195" y2="290" stroke="#777" stroke-width="2"/>
+                        <line x1="195" y1="290" x2="195" y2="300" stroke="#777" stroke-width="2"/>
 
                         <!-- Outputs from Noria Elevador Molino (7) and Noria Mezcladora (12) to discharge -->
-                        <line x1="315" y1="250" x2="500" y2="250" stroke="#777" stroke-width="2"/>
-                        <line x1="65" y1="250" x2="100" y2="250" stroke="#777" stroke-width="2"/>
-                        <line x1="100" y1="250" x2="100" y2="150" stroke="#777" stroke-width="2"/>
-                        <line x1="100" y1="150" x2="315" y2="150" stroke="#777" stroke-width="2"/>
-                        <text x="550" y="240" text-anchor="middle" class="svg-label">Descarga</text>
-
-
+                        <line x1="365" y1="250" x2="550" y2="250" stroke="#777" stroke-width="2"/>
+                        <line x1="195" y1="150" x2="550" y2="150" stroke="#777" stroke-width="2"/>
+                        <text x="575" y="240" text-anchor="middle" class="svg-label">Descarga</text>
                     </svg>
                 </div>
                 <div class="button-group" style="justify-content: center; margin-top: 20px;">
@@ -890,7 +899,6 @@
 
     <script>
         // Global array to store extractor data (name and inertia)
-        // Now initialized with 11 extractors.
         let extractorIngredients = Array.from({length: 11}, (_, i) => ({
             name: `Extractor S${i + 1}`,
             inertia: 0 // Default inertia
@@ -911,27 +919,35 @@
 
         // State for simulation components
         const simulationComponents = {
-            'component-8': { active: false, label: 'Noria Balanza (8)' }, // Noria elevador de balanza
-            'component-15': { active: false, label: 'Extractor Balanza (15)' }, // Extractor de balanza
-            'component-7': { active: false, label: 'Elevador Molino (7)' }, // Elevador del molino
-            'component-14': { active: false, label: 'Extractor Molino (14)' }, // Extractor de molino
-            'component-16': { active: false, label: 'Extractor Molino (16)' }, // Otro extractor de molino
-            'component-10': { active: false, rpm: 0, label: 'Alimentador Molino (10)' }, // Alimentador de molino
-            'component-3': { active: false, label: 'Abre Mezcladora (3)' }, // Abre la mezcladora
-            'component-11': { active: false, label: 'Paso Mezcladora (11)' }, // Permite el paso del pulmón uno a la mezcladora
-            'component-12': { active: false, label: 'Noria Mezcladora (12)' }, // Noria elevadora de mezcladora
-            'component-13': { active: false, label: 'Extractor Mezcladora (13)' }, // Extractor de mezcladora
-            // Add other static components if needed, or those with no state
-            'silo-ext1': { active: false, label: 'Silo Extractor S1', fill: 0 }, // Representing fill level
-            'silo-ext2': { active: false, label: 'Silo Extractor S2', fill: 0 },
-            'silo-ext3': { active: false, label: 'Silo Extractor S3', fill: 0 },
-            'silo-ext4': { active: false, label: 'Silo Extractor S4', fill: 0 },
-            'silo-ext5': { active: false, label: 'Silo Extractor S5', fill: 0 },
-            'silo-ext6': { active: false, label: 'Silo Extractor S6', fill: 0 }, // For S6-S11, might combine
-            'component-1-pulmon': { active: false, label: 'Pulmón Mez. (1)', fill: 0 }, // Pulmón antes de la mezcladora
-            'component-2': { active: false, label: 'Pulmón Mol. (2)', fill: 0 }, // Pulmón del molino
-            'component-4': { active: false, label: 'Molino (4)'}, // Molino
-            'mixer-tank': { active: false, label: 'Mezcladora', fill: 0 } // Mezcladora
+            // Individual silo extractors
+            'ext-silo-0': { active: false, label: 'Extractor S1', fill: 0 },
+            'ext-silo-1': { active: false, label: 'Extractor S2', fill: 0 },
+            'ext-silo-2': { active: false, label: 'Extractor S3', fill: 0 },
+            'ext-silo-3': { active: false, label: 'Extractor S4', fill: 0 },
+            'ext-silo-4': { active: false, label: 'Extractor S5', fill: 0 },
+            'ext-silo-5': { active: false, label: 'Extractor S6', fill: 0 },
+            'ext-silo-6': { active: false, label: 'Extractor S7', fill: 0 },
+            'ext-silo-7': { active: false, label: 'Extractor S8', fill: 0 },
+            'ext-silo-8': { active: false, label: 'Extractor S9', fill: 0 },
+            'ext-silo-9': { active: false, label: 'Extractor S10', fill: 0 },
+            'ext-silo-10': { active: false, label: 'Extractor S11', fill: 0 },
+
+            // Other system components
+            'component-5': { active: false, label: 'Balanza (5)' },
+            'component-8': { active: false, label: 'Noria Balanza (8)' },
+            'component-15': { active: false, label: 'Extractor Balanza (15)' },
+            'component-7': { active: false, label: 'Elevador Molino (7)' },
+            'component-14': { active: false, label: 'Extractor Molino (14)' },
+            'component-16': { active: false, label: 'Extractor Molino (16)' },
+            'component-10': { active: false, rpm: 0, label: 'Alimentador Molino (10)' },
+            'component-3': { active: false, label: 'Abre Mezcladora (3)' },
+            'component-11': { active: false, label: 'Paso Mezcladora (11)' },
+            'component-12': { active: false, label: 'Noria Mezcladora (12)' },
+            'component-13': { active: false, label: 'Extractor Mezcladora (13)' },
+            'component-1-pulmon': { active: false, label: 'Pulmón Mez. (1)', fill: 0 },
+            'component-2': { active: false, label: 'Pulmón Mol. (2)', fill: 0 },
+            'component-4': { active: false, label: 'Molino (4)'},
+            'mixer-tank': { active: false, label: 'Mezcladora', fill: 0 }
         };
 
 
@@ -972,15 +988,15 @@
             // Get references to page elements
             const mainControlPage = document.getElementById('main-control-page');
             const formulasPage = document.getElementById('formulas-page');
-            const extractorConfigPage = document.getElementById('extractor-config-page'); // New config page
-            const simulationPage = document.getElementById('simulation-page'); // New simulation page
+            const extractorConfigPage = document.getElementById('extractor-config-page');
+            const simulationPage = document.getElementById('simulation-page');
 
             const showFormulasButton = document.getElementById('showFormulasButton');
-            const showSimulationButton = document.getElementById('showSimulationButton'); // New button
+            const showSimulationButton = document.getElementById('showSimulationButton');
 
             const backToMainFromFormulasButton = document.getElementById('backToMainFromFormulasButton');
             const backToMainFromConfigButton = document.getElementById('backToMainFromConfigButton');
-            const backToMainFromSimulationButton = document.getElementById('backToMainFromSimulationButton'); // New back button
+            const backToMainFromSimulationButton = document.getElementById('backToMainFromSimulationButton');
 
             const saveConfigButton = document.getElementById('save-config-button');
             const configIngredientInput = document.getElementById('config-ingredient-input');
@@ -1520,18 +1536,28 @@
                     startWeightSimulation();
                 }
             }
-            // For Silo Extractors (S1-S11) - simulate material flowing IN to balance
-            // This is a simplified model, in reality, selected silo extractor would affect currentWeight
-            if (componentId.startsWith('silo-ext') && componentId !== 'component-15') {
-                if (component.active) {
-                    if (weightInterval) clearInterval(weightInterval); // Stop current weight fluctuation
+
+            // For Silo Extractors (ext-silo-X) - simulate material flowing IN to balance
+            if (componentId.startsWith('ext-silo-')) {
+                const extractorIndex = parseInt(componentId.replace('ext-silo-', ''));
+                const currentExtractorState = simulationComponents[componentId].active; // State *after* toggle
+
+                if (currentExtractorState) { // If just turned ON
+                    // Stop current weight fluctuation if it's not already flowing in
+                    if (weightInterval) clearInterval(weightInterval);
                     weightInterval = setInterval(() => {
                         currentWeight += (Math.random() * 0.5 + 0.2); // Increase weight
                         if (currentWeight > 1000) currentWeight = 1000; // Max balance weight
                         updateWeightDisplay();
                     }, 100);
-                } else {
-                    startWeightSimulation();
+                } else { // If just turned OFF
+                    // Check if ANY other silo extractor is still active
+                    const anySiloExtractorActive = Array.from({length: NUM_EXTRACTORS}, (_, i) => `ext-silo-${i}`)
+                                                    .some(id => simulationComponents[id] && simulationComponents[id].active);
+                    if (!anySiloExtractorActive) {
+                        // If no other silo extractors are active, resume normal fluctuation
+                        startWeightSimulation();
+                    }
                 }
             }
         }
@@ -1540,7 +1566,7 @@
         function setupSimulationControls() {
             const simulationPageDiv = document.getElementById('simulation-page');
             const controlGroup = simulationPageDiv.querySelector('.control-group');
-            const backButtonDiv = controlGroup.querySelector('.button-group'); // Get the existing button group
+            const backButtonDiv = controlGroup.querySelector('.button-group');
 
             // Create a new div to hold the component control buttons
             const componentControlsDiv = document.createElement('div');
@@ -1563,15 +1589,18 @@
 
             // Add controls for Silo Extractors (S1-S11)
             for (let i = 0; i < NUM_EXTRACTORS; i++) {
-                const siloId = `silo-ext${i + 1}`;
-                componentsToControl.unshift({ id: siloId, label: `Ext. ${extractorIngredients[i].name}` }); // Add at the beginning
+                componentsToControl.unshift({ id: `ext-silo-${i}`, label: `Ext. ${extractorIngredients[i].name}` }); // Add at the beginning
             }
 
-
+            componentControlsDiv.innerHTML = ''; // Clear previous controls if any
             componentsToControl.forEach(comp => {
                 const controlDiv = document.createElement('div');
                 controlDiv.classList.add('component-control');
                 controlDiv.style.marginBottom = '10px';
+
+                const currentComponentState = simulationComponents[comp.id]?.active || false;
+                const statusClass = currentComponentState ? 'status-on' : 'status-off';
+                const statusText = currentComponentState ? 'ENCENDIDO' : 'APAGADO';
 
                 controlDiv.innerHTML = `
                     <h3 style="margin-bottom: 5px;">${comp.label}</h3>
@@ -1584,7 +1613,7 @@
                             ON/OFF
                         </button>
                     </div>
-                    <div class="component-status-display">Estado: <span id="status-${comp.id}" class="${simulationComponents[comp.id]?.active ? 'status-on' : 'status-off'}">${simulationComponents[comp.id]?.active ? 'ENCENDIDO' : 'APAGADO'}</span></div>
+                    <div class="component-status-display">Estado: <span id="status-${comp.id}" class="${statusClass}">${statusText}</span></div>
                 `;
                 componentControlsDiv.appendChild(controlDiv);
 
@@ -1592,12 +1621,10 @@
                 if (comp.id === 'component-10') {
                     const rpmControlDiv = document.createElement('div');
                     rpmControlDiv.innerHTML = `
-                        <label for="rpm-range-${comp.id}" style="margin-top: 5px;">RPM: <span id="rpm-value-${comp.id}">0</span></label>
-                        <input type="range" id="rpm-range-${comp.id}" min="0" max="20" value="0" step="1" oninput="updateRpm('${comp.id}', this.value)">
+                        <label for="rpm-range-${comp.id}" style="margin-top: 5px;">RPM: <span id="rpm-value-${comp.id}">${simulationComponents[comp.id].rpm}</span></label>
+                        <input type="range" id="rpm-range-${comp.id}" min="0" max="20" value="${simulationComponents[comp.id].rpm}" step="1" oninput="updateRpm('${comp.id}', this.value)">
                     `;
                     controlDiv.appendChild(rpmControlDiv);
-                    // Initial update for RPM display
-                    document.getElementById(`rpm-value-${comp.id}`).innerText = simulationComponents[comp.id].rpm;
                 }
             });
 
