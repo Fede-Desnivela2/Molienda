@@ -391,15 +391,15 @@
             background-color: #000;
             border: 2px solid #555;
             border-radius: 4px;
-            padding: 10px 20px;
+            padding: 15px 25px; /* Increased padding */
             margin: 15px auto;
             width: fit-content;
             font-family: 'Digital-7', monospace;
-            font-size: 2.5em;
+            font-size: 3.5em; /* Significantly larger font size */
             color: #0f0;
-            text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
-            letter-spacing: 2px;
-            min-width: 150px;
+            text-shadow: 0 0 8px #0f0, 0 0 15px #0f0; /* More intense glow effect */
+            letter-spacing: 3px; /* Increased letter spacing */
+            min-width: 220px; /* Wider to accommodate more digits */
             text-align: right;
         }
 
@@ -485,6 +485,68 @@
             opacity: 1;
             display: block;
         }
+
+        /* Simulation Page Specific Styles */
+        #simulation-page {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #simulation-canvas {
+            border: 1px solid #666;
+            background-color: #222;
+            width: 100%;
+            max-width: 600px; /* Limit width to keep it manageable */
+            height: 400px; /* Fixed height for now, can be dynamic */
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .svg-component {
+            fill: #6c757d; /* Default component color (grey) */
+            stroke: #444;
+            stroke-width: 2;
+            transition: fill 0.3s ease;
+        }
+
+        .svg-component.active {
+            fill: #4CAF50; /* Green when active */
+        }
+        .svg-component.warning-level {
+            fill: #ffc107; /* Orange/Yellow for warning fill levels */
+        }
+        .svg-component.critical-level {
+            fill: #dc3545; /* Red for critical fill levels */
+        }
+        .svg-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            fill: #e0e0e0;
+            user-select: none;
+        }
+
+        .component-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .component-button-group button {
+            padding: 6px 10px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+
+        .component-status-display {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+        .component-status-display .status-on { color: #4CAF50; }
+        .component-status-display .status-off { color: #F44336; }
+
     </style>
 </head>
 <body>
@@ -550,6 +612,14 @@
                         <path d="M10 16h4" />
                     </svg>
                     Fórmulas
+                </button>
+                <button class="button-link button-blue" id="showSimulationButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 16v-1a2 2 0 0 0 -2 -2h-5a2 2 0 0 0 -2 2v1" />
+                        <path d="M6 8a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" />
+                    </svg>
+                    Simular Rutina
                 </button>
             </div>
         </div>
@@ -632,6 +702,153 @@
             </div>
         </div>
 
+        <!-- Simulation Page (initially hidden) -->
+        <div id="simulation-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Simulación de Planta de Molienda</h2>
+                <div id="simulation-canvas-container">
+                    <svg id="simulation-canvas" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+                        <!-- Background/Floor -->
+                        <rect x="0" y="0" width="600" height="400" fill="#222"/>
+
+                        <!-- Major Structures -->
+                        <!-- Silos (Simplified, corresponding to Extractors S1-S5 and S6-S11) -->
+                        <rect x="20" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext1"/>
+                        <rect x="120" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext2"/>
+                        <rect x="220" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext3"/>
+                        <rect x="320" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext4"/>
+                        <rect x="420" y="50" width="80" height="100" rx="5" ry="5" class="svg-component" id="silo-ext5"/>
+                        <rect x="520" y="50" width="60" height="100" rx="5" ry="5" class="svg-component" id="silo-ext6"/>
+                        <!-- Connectors from silos to Balanza (5) -->
+                        <line x1="60" y1="150" x2="60" y2="180" stroke="#777" stroke-width="2"/>
+                        <line x1="160" y1="150" x2="160" y2="180" stroke="#777" stroke-width="2"/>
+                        <line x1="260" y1="150" x2="260" y2="180" stroke="#777" stroke-width="2"/>
+                        <line x1="360" y1="150" x2="360" y2="180" stroke="#777" stroke-width="2"/>
+                        <line x1="460" y1="150" x2="460" y2="180" stroke="#777" stroke-width="2"/>
+                        <line x1="550" y1="150" x2="550" y2="180" stroke="#777" stroke-width="2"/>
+
+                        <!-- 5: Balanza -->
+                        <polygon points="200,180 400,180 380,250 220,250" class="svg-component" id="component-5"/>
+                        <text x="300" y="215" text-anchor="middle" class="svg-label">Balanza (5)</text>
+                        <text x="300" y="235" text-anchor="middle" class="svg-label" id="balance-weight-display">0.00 kg</text>
+
+                        <!-- 15: Extractor de Balanza (below balanza) -->
+                        <rect x="290" y="250" width="20" height="30" class="svg-component" id="component-15"/>
+                        <text x="300" y="270" text-anchor="middle" class="svg-label">Ext. Balanza (15)</text>
+
+                        <!-- 8: Noria Elevador de Balanza (vertical conveyor) -->
+                        <rect x="180" y="200" width="30" height="150" class="svg-component" id="component-8"/>
+                        <text x="195" y="280" text-anchor="middle" transform="rotate(90 195 280)" class="svg-label">Noria Bal. (8)</text>
+
+                        <!-- Path from Extractor Balanza (15) to Noria Balanza (8) -->
+                        <line x1="300" y1="280" x2="200" y2="280" stroke="#777" stroke-width="2"/>
+                        <line x1="200" y1="280" x2="200" y2="200" stroke="#777" stroke-width="2"/>
+
+                        <!-- 2: Pulmón del Molino (Silo before mill) -->
+                        <rect x="400" y="200" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-2"/>
+                        <text x="440" y="240" text-anchor="middle" class="svg-label">Pulmón Mol. (2)</text>
+
+                        <!-- Path from Noria Balanza (8) to Pulmón Molino (2) -->
+                        <line x1="200" y1="200" x2="400" y2="200" stroke="#777" stroke-width="2"/>
+
+                        <!-- 10: Alimentador de Molino (below Pulmón Molino) -->
+                        <rect x="430" y="280" width="20" height="20" class="svg-component" id="component-10"/>
+                        <text x="440" y="295" text-anchor="middle" class="svg-label">Alim. Mol. (10)</text>
+
+                        <!-- 4: Molino -->
+                        <rect x="400" y="300" width="80" height="50" rx="5" ry="5" class="svg-component" id="component-4"/>
+                        <text x="440" y="325" text-anchor="middle" class="svg-label">Molino (4)</text>
+
+                        <!-- Path from Alimentador Molino (10) to Molino (4) -->
+                        <line x1="440" y1="300" x2="440" y2="300" stroke="#777" stroke-width="2"/>
+
+                        <!-- 7: Elevador del Molino (vertical conveyor) -->
+                        <rect x="300" y="250" width="30" height="150" class="svg-component" id="component-7"/>
+                        <text x="315" y="325" text-anchor="middle" transform="rotate(90 315 325)" class="svg-label">Elev. Mol. (7)</text>
+
+                        <!-- Path from Molino (4) to Elevador Molino (7) -->
+                        <line x1="440" y1="350" x2="315" y2="350" stroke="#777" stroke-width="2"/>
+
+                        <!-- 14: Extractor de Molino (below Molino, feeds Noria Elevador Molino) -->
+                        <rect x="400" y="350" width="20" height="30" class="svg-component" id="component-14"/>
+                        <text x="410" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (14)</text>
+
+                        <!-- 16: Otro extractor de molino (similar a 14) -->
+                        <rect x="460" y="350" width="20" height="30" class="svg-component" id="component-16"/>
+                        <text x="470" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (16)</text>
+
+                        <!-- Paths from extractors 14 and 16 to Elevador Molino (7) -->
+                        <line x1="410" y1="380" x2="315" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="470" y1="380" x2="315" y2="380" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- 1: Pulmón antes de la mezcladora (Silo before mixer) -->
+                        <rect x="100" y="50" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-1-pulmon"/>
+                        <text x="140" y="90" text-anchor="middle" class="svg-label">Pulmón Mez. (1)</text>
+
+                        <!-- 11: Permite el paso del pulmón uno a la mezcladora (valve) -->
+                        <circle cx="140" cy="145" r="10" class="svg-component" id="component-11"/>
+                        <text x="140" y="165" text-anchor="middle" class="svg-label">Paso Mez. (11)</text>
+
+                        <!-- Path from Pulmón Mezcladora (1) through Paso Mez. (11) to Mezcladora -->
+                        <line x1="140" y1="130" x2="140" y2="145" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- Mezcladora (represented by a large tank with 3 at the bottom) -->
+                        <polygon points="100,200 200,200 180,280 120,280" class="svg-component" id="mixer-tank"/>
+                        <text x="150" y="240" text-anchor="middle" class="svg-label">Mezcladora</text>
+
+                        <!-- Path from Paso Mezcladora (11) to Mezcladora -->
+                        <line x1="140" y1="145" x2="140" y2="200" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- 3: Abre la mezcladora (valve below mixer) -->
+                        <circle cx="150" cy="285" r="10" class="svg-component" id="component-3"/>
+                        <text x="150" y="305" text-anchor="middle" class="svg-label">Abre Mez. (3)</text>
+
+
+                        <!-- 13: Extractor de Mezcladora -->
+                        <rect x="140" y="310" width="20" height="30" class="svg-component" id="component-13"/>
+                        <text x="150" y="330" text-anchor="middle" class="svg-label">Ext. Mez. (13)</text>
+
+                        <!-- Path from Abre Mezcladora (3) to Extractor Mezcladora (13) -->
+                        <line x1="150" y1="295" x2="150" y2="310" stroke="#777" stroke-width="2"/>
+
+                        <!-- 12: Noria Elevadora de Mezcladora -->
+                        <rect x="50" y="250" width="30" height="150" class="svg-component" id="component-12"/>
+                        <text x="65" y="325" text-anchor="middle" transform="rotate(90 65 325)" class="svg-label">Noria Mez. (12)</text>
+
+                        <!-- Path from Extractor Mezcladora (13) to Noria Mezcladora (12) -->
+                        <line x1="150" y1="340" x2="65" y2="340" stroke="#777" stroke-width="2"/>
+                        <line x1="65" y1="340" x2="65" y2="250" stroke="#777" stroke-width="2"/>
+
+                        <!-- Connection from Molino (4) to Noria Elevador Molino (7) -->
+                        <line x1="440" y1="350" x2="315" y2="350" stroke="#777" stroke-width="2"/>
+
+                        <!-- Outputs from Noria Elevador Molino (7) and Noria Mezcladora (12) to discharge -->
+                        <line x1="315" y1="250" x2="500" y2="250" stroke="#777" stroke-width="2"/>
+                        <line x1="65" y1="250" x2="100" y2="250" stroke="#777" stroke-width="2"/>
+                        <line x1="100" y1="250" x2="100" y2="150" stroke="#777" stroke-width="2"/>
+                        <line x1="100" y1="150" x2="315" y2="150" stroke="#777" stroke-width="2"/>
+                        <text x="550" y="240" text-anchor="middle" class="svg-label">Descarga</text>
+
+
+                    </svg>
+                </div>
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-grey" id="backToMainFromSimulationButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Modal for Starting Routine -->
@@ -692,8 +909,38 @@
         const baseRpmValues = [950, 1020, 880, 1100, 990, 850, 930, 1050, 970, 890, 1000];
         const NUM_EXTRACTORS = extractorIngredients.length; // Number of extractors
 
+        // State for simulation components
+        const simulationComponents = {
+            'component-8': { active: false, label: 'Noria Balanza (8)' }, // Noria elevador de balanza
+            'component-15': { active: false, label: 'Extractor Balanza (15)' }, // Extractor de balanza
+            'component-7': { active: false, label: 'Elevador Molino (7)' }, // Elevador del molino
+            'component-14': { active: false, label: 'Extractor Molino (14)' }, // Extractor de molino
+            'component-16': { active: false, label: 'Extractor Molino (16)' }, // Otro extractor de molino
+            'component-10': { active: false, rpm: 0, label: 'Alimentador Molino (10)' }, // Alimentador de molino
+            'component-3': { active: false, label: 'Abre Mezcladora (3)' }, // Abre la mezcladora
+            'component-11': { active: false, label: 'Paso Mezcladora (11)' }, // Permite el paso del pulmón uno a la mezcladora
+            'component-12': { active: false, label: 'Noria Mezcladora (12)' }, // Noria elevadora de mezcladora
+            'component-13': { active: false, label: 'Extractor Mezcladora (13)' }, // Extractor de mezcladora
+            // Add other static components if needed, or those with no state
+            'silo-ext1': { active: false, label: 'Silo Extractor S1', fill: 0 }, // Representing fill level
+            'silo-ext2': { active: false, label: 'Silo Extractor S2', fill: 0 },
+            'silo-ext3': { active: false, label: 'Silo Extractor S3', fill: 0 },
+            'silo-ext4': { active: false, label: 'Silo Extractor S4', fill: 0 },
+            'silo-ext5': { active: false, label: 'Silo Extractor S5', fill: 0 },
+            'silo-ext6': { active: false, label: 'Silo Extractor S6', fill: 0 }, // For S6-S11, might combine
+            'component-1-pulmon': { active: false, label: 'Pulmón Mez. (1)', fill: 0 }, // Pulmón antes de la mezcladora
+            'component-2': { active: false, label: 'Pulmón Mol. (2)', fill: 0 }, // Pulmón del molino
+            'component-4': { active: false, label: 'Molino (4)'}, // Molino
+            'mixer-tank': { active: false, label: 'Mezcladora', fill: 0 } // Mezcladora
+        };
+
+
         document.addEventListener('DOMContentLoaded', function() {
             initApp(); // Initialize the application
+            // Initialize simulation components, mainly their visual state
+            renderSimulationState();
+            // Add buttons for simulation components
+            setupSimulationControls();
         });
 
         function initApp() {
@@ -726,13 +973,19 @@
             const mainControlPage = document.getElementById('main-control-page');
             const formulasPage = document.getElementById('formulas-page');
             const extractorConfigPage = document.getElementById('extractor-config-page'); // New config page
+            const simulationPage = document.getElementById('simulation-page'); // New simulation page
+
             const showFormulasButton = document.getElementById('showFormulasButton');
-            const backToMainFromFormulasButton = document.getElementById('backToMainFromFormulasButton'); // Renamed for clarity
-            const backToMainFromConfigButton = document.getElementById('backToMainFromConfigButton'); // New back button
-            const saveConfigButton = document.getElementById('save-config-button'); // New save button for config
-            const configIngredientInput = document.getElementById('config-ingredient-input'); // New input for config
-            const configInertiaInput = document.getElementById('config-inertia-input'); // New inertia input for config
-            const currentExtractorNameForConfig = document.getElementById('config-extractor-name'); // New span for config title
+            const showSimulationButton = document.getElementById('showSimulationButton'); // New button
+
+            const backToMainFromFormulasButton = document.getElementById('backToMainFromFormulasButton');
+            const backToMainFromConfigButton = document.getElementById('backToMainFromConfigButton');
+            const backToMainFromSimulationButton = document.getElementById('backToMainFromSimulationButton'); // New back button
+
+            const saveConfigButton = document.getElementById('save-config-button');
+            const configIngredientInput = document.getElementById('config-ingredient-input');
+            const configInertiaInput = document.getElementById('config-inertia-input');
+            const currentExtractorNameForConfig = document.getElementById('config-extractor-name');
 
             const saveFormulaButton = document.getElementById('saveFormulaButton');
             const tareButton = document.getElementById('tareButton');
@@ -745,21 +998,38 @@
             showFormulasButton.addEventListener('click', function() {
                 mainControlPage.style.display = 'none';
                 formulasPage.style.display = 'block';
-                extractorConfigPage.style.display = 'none'; // Ensure config page is hidden
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'none'; // Ensure simulation page is hidden
                 renderFormulasPage(); // Render formula inputs when navigating to the page
                 renderSavedFormulas(); // Also render saved formulas list
+            });
+
+            // Event listener for showing simulation page
+            showSimulationButton.addEventListener('click', function() {
+                mainControlPage.style.display = 'none';
+                formulasPage.style.display = 'none';
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'block';
+                renderSimulationState(); // Initial render of simulation state
             });
 
             // Event listener for going back from formulas page to main control page
             backToMainFromFormulasButton.addEventListener('click', function() {
                 formulasPage.style.display = 'none';
                 mainControlPage.style.display = 'block';
-                extractorConfigPage.style.display = 'none'; // Ensure config page is hidden
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'none';
             });
 
             // Event listener for going back from config page to main control page
             backToMainFromConfigButton.addEventListener('click', function() {
                 extractorConfigPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+            });
+
+            // Event listener for going back from simulation page to main control page
+            backToMainFromSimulationButton.addEventListener('click', function() {
+                simulationPage.style.display = 'none';
                 mainControlPage.style.display = 'block';
             });
 
@@ -816,6 +1086,8 @@
             const mainControlPage = document.getElementById('main-control-page');
             const formulasPage = document.getElementById('formulas-page');
             const extractorConfigPage = document.getElementById('extractor-config-page');
+            const simulationPage = document.getElementById('simulation-page');
+
             const configIngredientInput = document.getElementById('config-ingredient-input');
             const configInertiaInput = document.getElementById('config-inertia-input');
             const currentExtractorNameForConfig = document.getElementById('config-extractor-name');
@@ -828,6 +1100,7 @@
 
             mainControlPage.style.display = 'none';
             formulasPage.style.display = 'none';
+            simulationPage.style.display = 'none';
             extractorConfigPage.style.display = 'block';
         }
 
@@ -898,7 +1171,7 @@
         function startWeightSimulation() {
             if (weightInterval) clearInterval(weightInterval); // Clear any existing interval
             // Simulate initial non-zero weight for effect if needed
-            currentWeight = parseFloat((Math.random() * 5 + 0.1).toFixed(1)); // Start with a small random weight
+            currentWeight = parseFloat((Math.random() * 5 + 0.1).toFixed(2)); // Start with a small random weight, 2 decimals
             updateWeightDisplay();
             weightInterval = setInterval(() => {
                 // Simulate slight fluctuation around the current weight
@@ -912,7 +1185,13 @@
         function updateWeightDisplay() {
             const weightDisplayElem = document.getElementById('weightDisplay');
             if (weightDisplayElem) {
-                weightDisplayElem.innerText = `${currentWeight.toFixed(1)} kg`;
+                // Ensure 2 decimal places are always displayed
+                weightDisplayElem.innerText = `${currentWeight.toFixed(2)} kg`;
+                // Update balance weight display in simulation page if visible
+                const balanceWeightDisplay = document.getElementById('balance-weight-display');
+                if (balanceWeightDisplay) {
+                    balanceWeightDisplay.innerText = `${currentWeight.toFixed(2)} kg`;
+                }
             }
         }
 
@@ -920,7 +1199,7 @@
         function tareWeight() {
             currentWeight = 0.0;
             updateWeightDisplay();
-            showMessageBox("Tara aplicada. Peso reiniciado a 0.0 kg.");
+            showMessageBox("Tara aplicada. Peso reiniciado a 0.00 kg.");
         }
 
         // --- Formula Management Logic ---
@@ -1151,6 +1430,213 @@
                 showMessageBox("Error: Fórmula seleccionada no encontrada.");
             }
         }
+
+        // --- Simulation Page Logic ---
+
+        // Function to render the current state of simulation components
+        function renderSimulationState() {
+            // Update visual state of SVG components based on simulationComponents object
+            for (const id in simulationComponents) {
+                const component = document.getElementById(id);
+                if (component) {
+                    if (simulationComponents[id].active) {
+                        component.classList.add('active');
+                    } else {
+                        component.classList.remove('active');
+                    }
+                    // Handle fill levels if applicable (e.g., for silos, pulmones, mezcladora)
+                    if (simulationComponents[id].fill !== undefined) {
+                        // For a simple visual, we can change fill color based on level
+                        if (simulationComponents[id].fill > 80) {
+                            component.classList.add('critical-level');
+                            component.classList.remove('warning-level');
+                        } else if (simulationComponents[id].fill > 40) {
+                            component.classList.add('warning-level');
+                            component.classList.remove('critical-level');
+                        } else {
+                            component.classList.remove('warning-level', 'critical-level');
+                        }
+                    }
+                }
+            }
+        }
+
+        // Function to toggle a component's state
+        function toggleComponent(componentId) {
+            const component = simulationComponents[componentId];
+            if (!component) return;
+
+            // Apply dependencies based on the provided description
+            if (componentId === 'component-15') { // Extractor de Balanza (15)
+                if (!simulationComponents['component-8'].active) {
+                    showMessageBox("Error: La Noria Balanza (8) debe estar encendida para operar el Extractor de Balanza (15).");
+                    return;
+                }
+            } else if (componentId === 'component-14' || componentId === 'component-16') { // Extractores de Molino (14, 16)
+                if (!simulationComponents['component-7'].active) {
+                    showMessageBox("Error: El Elevador Molino (7) debe estar encendido para operar el Extractor de Molino.");
+                    return;
+                }
+            } else if (componentId === 'component-13') { // Extractor de Mezcladora (13)
+                if (!simulationComponents['component-12'].active) {
+                    showMessageBox("Error: La Noria Mezcladora (12) debe estar encendida para operar el Extractor de Mezcladora (13).");
+                    return;
+                }
+            }
+
+            component.active = !component.active;
+            renderSimulationState();
+            showMessageBox(`${component.label}: ${component.active ? 'ENCENDIDO' : 'APAGADO'}`);
+
+            // Special logic for Alimentador de Molino (10) RPM
+            if (componentId === 'component-10') {
+                if (component.active) {
+                    component.rpm = 15; // Set a default RPM when active
+                    showMessageBox(`Alimentador Molino (10): RPM a 15`);
+                } else {
+                    component.rpm = 0;
+                }
+            }
+
+            // Simulate weight change for Balanza (5) if Extractor Balanza (15) is active
+            if (componentId === 'component-15') {
+                if (component.active) {
+                    // Simulate material flowing OUT of the balance
+                    if (weightInterval) clearInterval(weightInterval); // Stop current weight fluctuation
+                    weightInterval = setInterval(() => {
+                        currentWeight -= (Math.random() * 0.2 + 0.1); // Decrease weight
+                        if (currentWeight < 0) currentWeight = 0;
+                        updateWeightDisplay();
+                        if (currentWeight <= 0) {
+                            clearInterval(weightInterval);
+                            weightInterval = null;
+                            showMessageBox("Balanza vacía.");
+                            component.active = false; // Turn off extractor once empty
+                            renderSimulationState();
+                        }
+                    }, 200); // Faster update for material flow
+                } else {
+                    // If extractor turns off, resume normal weight fluctuation
+                    startWeightSimulation();
+                }
+            }
+            // For Silo Extractors (S1-S11) - simulate material flowing IN to balance
+            // This is a simplified model, in reality, selected silo extractor would affect currentWeight
+            if (componentId.startsWith('silo-ext') && componentId !== 'component-15') {
+                if (component.active) {
+                    if (weightInterval) clearInterval(weightInterval); // Stop current weight fluctuation
+                    weightInterval = setInterval(() => {
+                        currentWeight += (Math.random() * 0.5 + 0.2); // Increase weight
+                        if (currentWeight > 1000) currentWeight = 1000; // Max balance weight
+                        updateWeightDisplay();
+                    }, 100);
+                } else {
+                    startWeightSimulation();
+                }
+            }
+        }
+
+        // Function to set up dynamic buttons for simulation components
+        function setupSimulationControls() {
+            const simulationPageDiv = document.getElementById('simulation-page');
+            const controlGroup = simulationPageDiv.querySelector('.control-group');
+            const backButtonDiv = controlGroup.querySelector('.button-group'); // Get the existing button group
+
+            // Create a new div to hold the component control buttons
+            const componentControlsDiv = document.createElement('div');
+            componentControlsDiv.id = 'component-controls';
+            controlGroup.insertBefore(componentControlsDiv, backButtonDiv); // Insert before the back button group
+
+
+            const componentsToControl = [
+                { id: 'component-8', label: 'Noria Balanza (8)' },
+                { id: 'component-15', label: 'Extractor Balanza (15)' },
+                { id: 'component-7', label: 'Elevador Molino (7)' },
+                { id: 'component-14', label: 'Extractor Molino (14)' },
+                { id: 'component-16', label: 'Extractor Molino (16)' },
+                { id: 'component-10', label: 'Alimentador Molino (10)' },
+                { id: 'component-3', label: 'Abre Mezcladora (3)' },
+                { id: 'component-11', label: 'Paso Mezcladora (11)' },
+                { id: 'component-12', label: 'Noria Mezcladora (12)' },
+                { id: 'component-13', label: 'Extractor Mezcladora (13)' }
+            ];
+
+            // Add controls for Silo Extractors (S1-S11)
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const siloId = `silo-ext${i + 1}`;
+                componentsToControl.unshift({ id: siloId, label: `Ext. ${extractorIngredients[i].name}` }); // Add at the beginning
+            }
+
+
+            componentsToControl.forEach(comp => {
+                const controlDiv = document.createElement('div');
+                controlDiv.classList.add('component-control');
+                controlDiv.style.marginBottom = '10px';
+
+                controlDiv.innerHTML = `
+                    <h3 style="margin-bottom: 5px;">${comp.label}</h3>
+                    <div class="component-button-group">
+                        <button class="button-link button-green" onclick="toggleComponent('${comp.id}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 4px;'>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 4v16l13 -8z" />
+                            </svg>
+                            ON/OFF
+                        </button>
+                    </div>
+                    <div class="component-status-display">Estado: <span id="status-${comp.id}" class="${simulationComponents[comp.id]?.active ? 'status-on' : 'status-off'}">${simulationComponents[comp.id]?.active ? 'ENCENDIDO' : 'APAGADO'}</span></div>
+                `;
+                componentControlsDiv.appendChild(controlDiv);
+
+                // Add RPM control for Alimentador Molino (10)
+                if (comp.id === 'component-10') {
+                    const rpmControlDiv = document.createElement('div');
+                    rpmControlDiv.innerHTML = `
+                        <label for="rpm-range-${comp.id}" style="margin-top: 5px;">RPM: <span id="rpm-value-${comp.id}">0</span></label>
+                        <input type="range" id="rpm-range-${comp.id}" min="0" max="20" value="0" step="1" oninput="updateRpm('${comp.id}', this.value)">
+                    `;
+                    controlDiv.appendChild(rpmControlDiv);
+                    // Initial update for RPM display
+                    document.getElementById(`rpm-value-${comp.id}`).innerText = simulationComponents[comp.id].rpm;
+                }
+            });
+
+            // Update status displays initially
+            updateAllComponentStatusDisplays();
+        }
+
+        // Function to update the RPM of Alimentador Molino (10)
+        function updateRpm(componentId, value) {
+            const component = simulationComponents[componentId];
+            if (component) {
+                component.rpm = parseInt(value);
+                document.getElementById(`rpm-value-${componentId}`).innerText = component.rpm;
+                showMessageBox(`${component.label}: RPM a ${component.rpm}`);
+            }
+        }
+
+        // Helper function to update the status text of all components
+        function updateAllComponentStatusDisplays() {
+            for (const id in simulationComponents) {
+                const statusSpan = document.getElementById(`status-${id}`);
+                if (statusSpan) {
+                    statusSpan.innerText = simulationComponents[id].active ? 'ENCENDIDO' : 'APAGADO';
+                    statusSpan.className = simulationComponents[id].active ? 'status-on' : 'status-off';
+                }
+            }
+        }
+
+        // Override the default toggleComponent to also update status display
+        const originalToggleComponent = toggleComponent;
+        toggleComponent = function(componentId) {
+            originalToggleComponent(componentId);
+            const statusSpan = document.getElementById(`status-${componentId}`);
+            if (statusSpan) {
+                statusSpan.innerText = simulationComponents[componentId].active ? 'ENCENDIDO' : 'APAGADO';
+                statusSpan.className = simulationComponents[componentId].active ? 'status-on' : 'status-off';
+            }
+        };
+
     </script>
 </body>
 </html>
